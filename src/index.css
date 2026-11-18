@@ -24,6 +24,7 @@
   --warn-bg: #fbe8d8;
   --shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 6px 18px rgba(80, 65, 55, 0.06);
   --shadow-lg: 0 10px 28px rgba(50, 40, 35, 0.18);
+  --logo: #1b3b66;
   color-scheme: light;
 }
 
@@ -50,6 +51,7 @@
   --warn-bg: #3a2a1e;
   --shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.5);
+  --logo: #f5f2ef;
   color-scheme: dark;
 }
 
@@ -85,6 +87,21 @@ body {
   background-color: var(--card);
   background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
   background-size: 20px 20px;
+}
+
+.soho-logo {
+  display: block;
+  aspect-ratio: 360 / 87;
+  background-color: var(--logo);
+  -webkit-mask-image: url('/soho-logo-mask.png');
+  mask-image: url('/soho-logo-mask.png');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+  transition: background-color 150ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {

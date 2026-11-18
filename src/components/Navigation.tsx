@@ -48,16 +48,17 @@ export const Sidebar: React.FC<NavigationProps> = ({
   return (
     <aside className="hidden md:flex flex-col w-[240px] shrink-0 sticky top-0 h-screen px-3.5 py-5 border-r border-[var(--line)] bg-[var(--side)]/55">
       {/* Brand mark */}
-      <div className="px-1.5 pb-5">
+      <div className="px-3 pt-0.5 pb-5">
         <a
           href="#dashboard"
+          aria-label="SOHO"
           onClick={(e) => {
             e.preventDefault();
             onNavigate('dashboard');
           }}
-          className="inline-flex items-center bg-white rounded-xl px-3 py-1.5 shadow-[var(--shadow)]"
+          className="inline-block focus-visible:outline-2 focus-visible:outline-[var(--accent)] rounded-md"
         >
-          <img src="/soho-logo.png" alt="SOHO" className="h-7 w-auto block" />
+          <span role="img" aria-label="SOHO" className="soho-logo h-7 aspect-[360/87]" />
         </a>
       </div>
 
@@ -150,13 +151,14 @@ export const MobileNavigation: React.FC<NavigationProps> = ({
       <header className="md:hidden sticky top-0 z-30 h-12 px-3 flex items-center justify-between gap-2 bg-[var(--bg)]/90 backdrop-blur-md border-b border-[var(--line)] pt-[env(safe-area-inset-top,0px)]">
         <a
           href="#dashboard"
+          aria-label="SOHO"
           onClick={(e) => {
             e.preventDefault();
             onNavigate('dashboard');
           }}
-          className="inline-flex items-center bg-white rounded-lg px-2 py-1 shadow-xs shrink-0"
+          className="inline-block shrink-0 focus-visible:outline-2 focus-visible:outline-[var(--accent)] rounded-md"
         >
-          <img src="/soho-logo.png" alt="SOHO" className="h-5 w-auto block" />
+          <span role="img" aria-label="SOHO" className="soho-logo h-5 aspect-[360/87]" />
         </a>
 
         <div className="flex items-center gap-1.5 shrink-0">

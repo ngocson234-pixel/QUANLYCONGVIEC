@@ -12,7 +12,7 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['icon.svg', 'apple-touch-icon.png', 'soho-logo.png'],
+        includeAssets: ['icon.svg', 'apple-touch-icon.png', 'soho-logo.png', 'soho-logo-mask.png'],
         manifest: {
           id: '/',
           name: 'SOHO — Không gian làm việc',

@@ -752,10 +752,29 @@ export const SohoProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await signInWithPopup(auth, googleProvider);
       showToast('Đã đăng nhập và đồng bộ');
     } catch (err) {
+      const code =
+        typeof err === 'object' && err !== null && 'code' in err
+          ? String((err as { code?: unknown }).code || '')
+          : '';
       const msg = err instanceof Error ? err.message : '';
-      if (!msg.includes('popup-closed-by-user')) {
-        showToast('Không thể đăng nhập lúc này. Hãy thử lại.');
+      if (code === 'auth/popup-closed-by-user' || msg.includes('popup-closed-by-user')) {
+        return;
       }
+      if (code === 'auth/cancelled-popup-request') {
+        return;
+      }
+      if (code === 'auth/unauthorized-domain' || msg.includes('unauthorized-domain')) {
+        showToast(
+          `Tên miền ${window.location.hostname} chưa được thêm vào Authorized domains trên Firebase.`
+        );
+        return;
+      }
+      if (code === 'auth/popup-blocked' || msg.includes('popup-blocked')) {
+        showToast('Trình duyệt đang chặn cửa sổ đăng nhập. Vui lòng bật cho phép popup.');
+        return;
+      }
+      console.error('Google Sign-In error:', code || msg, err);
+      showToast(`Không thể đăng nhập (${code || 'lỗi kết nối'}). Vui lòng thử lại.`);
     }
   }, [showToast]);
 
