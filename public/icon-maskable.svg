@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Full-bleed background for maskable safe-zone compliance -->
+  <rect width="512" height="512" fill="#1b3b66"/>
+  <!-- Inner logo scaled to ~64% centered inside the 80% safe-zone circle -->
+  <g transform="translate(92, 92) scale(0.64)">
+    <rect x="116" y="128" width="126" height="126" rx="28" fill="#f8f4f3"/>
+    <rect x="270" y="128" width="126" height="74" rx="24" fill="#9db8e3"/>
+    <rect x="270" y="230" width="126" height="154" rx="28" fill="#f8f4f3"/>
+    <rect x="116" y="282" width="126" height="102" rx="24" fill="#f57a1f"/>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+{
+  "name": "SOHO",
+  "description": "Không gian làm việc cá nhân: công việc, thu nhập, nhắc việc, ghi chú nhanh và mindmap đồng bộ trên web và điện thoại.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

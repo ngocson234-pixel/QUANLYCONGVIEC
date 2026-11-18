@@ -1,0 +1,404 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Private profile metadata for the authenticated SOHO workspace owner.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 254
+        },
+        "displayName": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "displayName", "photoURL", "createdAt", "updatedAt"]
+    },
+    "UserPreferences": {
+      "title": "UserPreferences",
+      "description": "Synced workspace preferences including monthly income goal and theme.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "monthlyGoal": {
+          "type": "number"
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["system", "light", "dark"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "monthlyGoal", "theme", "updatedAt"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Personal work task with date, optional time, priority, and completion status.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "date": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "time": {
+          "type": "string",
+          "maxLength": 5,
+          "pattern": "^(|[0-2][0-9]:[0-5][0-9])$"
+        },
+        "pri": {
+          "type": "string",
+          "enum": ["high", "mid", "low"]
+        },
+        "done": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "title", "date", "time", "pri", "done", "createdAt", "updatedAt"]
+    },
+    "Reminder": {
+      "title": "Reminder",
+      "description": "Scheduled reminder with date, optional time, and completion state.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "date": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "time": {
+          "type": "string",
+          "maxLength": 5,
+          "pattern": "^(|[0-2][0-9]:[0-5][0-9])$"
+        },
+        "done": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "title", "date", "time", "done", "createdAt", "updatedAt"]
+    },
+    "IncomeColumn": {
+      "title": "IncomeColumn",
+      "description": "Income or expense category column in the monthly ledger.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["in", "out"]
+        },
+        "monthScope": {
+          "type": "string",
+          "maxLength": 7,
+          "pattern": "^(|[0-9]{4}-[0-9]{2})$"
+        },
+        "hiddenMonths": {
+          "type": "array",
+          "description": "List of YYYY-MM strings where this column is hidden."
+        },
+        "sortOrder": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "name", "kind", "monthScope", "hiddenMonths", "sortOrder", "createdAt", "updatedAt"]
+    },
+    "IncomeItem": {
+      "title": "IncomeItem",
+      "description": "Individual income or expense entry under a category column and date.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "colId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "date": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "client": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "paid": {
+          "type": "boolean"
+        },
+        "due": {
+          "type": "string",
+          "maxLength": 10,
+          "pattern": "^(|[0-9]{4}-[0-9]{2}-[0-9]{2})$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "colId", "date", "amount", "client", "note", "paid", "due", "createdAt", "updatedAt"]
+    },
+    "Note": {
+      "title": "Note",
+      "description": "Quick idea, caption, or content snippet note.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "body": {
+          "type": "string",
+          "maxLength": 20000
+        },
+        "tag": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "pin": {
+          "type": "boolean"
+        },
+        "updatedAtMs": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "body", "tag", "pin", "updatedAtMs", "createdAt", "updatedAt"]
+    },
+    "Mindmap": {
+      "title": "Mindmap",
+      "description": "Interactive diagram metadata with layout mode and root node reference.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "layout": {
+          "type": "string",
+          "enum": ["mind", "logic", "org"]
+        },
+        "rootNodeId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "updatedAtMs": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "name", "layout", "rootNodeId", "updatedAtMs", "createdAt", "updatedAt"]
+    },
+    "MindmapNode": {
+      "title": "MindmapNode",
+      "description": "Individual node inside a Mindmap diagram.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "mapId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "parentId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^(|[a-zA-Z0-9_\\-]+)$"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "collapsed": {
+          "type": "boolean"
+        },
+        "sortOrder": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "mapId", "parentId", "text", "collapsed", "sortOrder", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/private/profile": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private owner profile containing PII (email, displayName, photoURL)."
+    },
+    "/users/{userId}/settings/preferences": {
+      "schema": { "$ref": "#/entities/UserPreferences" },
+      "description": "Synced user preferences such as monthly income goal and theme."
+    },
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/Task" },
+      "description": "Tasks belonging to the user."
+    },
+    "/users/{userId}/reminders/{reminderId}": {
+      "schema": { "$ref": "#/entities/Reminder" },
+      "description": "Reminders belonging to the user."
+    },
+    "/users/{userId}/incomeColumns/{colId}": {
+      "schema": { "$ref": "#/entities/IncomeColumn" },
+      "description": "Income and expense ledger columns belonging to the user."
+    },
+    "/users/{userId}/incomeItems/{itemId}": {
+      "schema": { "$ref": "#/entities/IncomeItem" },
+      "description": "Income and expense entries belonging to the user."
+    },
+    "/users/{userId}/notes/{noteId}": {
+      "schema": { "$ref": "#/entities/Note" },
+      "description": "Quick notes belonging to the user."
+    },
+    "/users/{userId}/mindmaps/{mapId}": {
+      "schema": { "$ref": "#/entities/Mindmap" },
+      "description": "Mindmap documents belonging to the user."
+    },
+    "/users/{userId}/mindmaps/{mapId}/nodes/{nodeId}": {
+      "schema": { "$ref": "#/entities/MindmapNode" },
+      "description": "Nodes belonging to a specific user mindmap."
+    }
+  }
+}
